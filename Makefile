@@ -5,7 +5,7 @@ setup_git_hooks:
 	@mkdir -p .git/hooks
 	@printf '#!/bin/bash\n\
 SWIFT_LINT=/opt/homebrew/bin/swiftlint\n\
-REQUIRED_VERSION="0.57.1"\n\
+REQUIRED_VERSION="0.58.2"\n\
 \n\
 if [[ -e "$${SWIFT_LINT}" ]]; then\n\
     INSTALLED_VERSION=$$($${SWIFT_LINT} version)\n\
@@ -34,3 +34,8 @@ bootstrap:
 prepare_release:
 	TUIST_STATIC=1 tuist install
 	TUIST_STATIC=1 tuist generate --no-binary-cache --no-open
+
+prepare_dev:
+	tuist install
+	tuist cache
+	tuist generate

@@ -70,10 +70,14 @@ public struct CoordinatorPage: View {
                     }
                 )
                 .onPreferenceChange(InnerWidthPreferenceKey.self) { width in
-                    if width > 700 {
-                        viewModel.windowMode = .split
-                    } else {
-                        viewModel.windowMode = .compact
+                    Task {
+                        await MainActor.run {
+                            if width > 700 {
+                                viewModel.windowMode = .split
+                            } else {
+                                viewModel.windowMode = .compact
+                            }
+                        }
                     }
                 }
             }

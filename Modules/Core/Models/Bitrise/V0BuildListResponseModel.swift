@@ -9,7 +9,7 @@ import Foundation
 
 public struct V0BuildListResponseModel: Codable, PagingResponseModel, Sendable {
 
-    public let data: [BuildResponseItemModel]
+    public var data: [BuildResponseItemModel]
     public let paging: V0PagingResponseModel
 
     public init(data: [BuildResponseItemModel] = [], paging: V0PagingResponseModel) {

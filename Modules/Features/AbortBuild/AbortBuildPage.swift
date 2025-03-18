@@ -57,8 +57,8 @@ package struct AbortBuildPage: PageType {
                     .preference(key: InnerHeightPreferenceKey.self, value: proxy.size.height)
             }
         )
-        .onPreferenceChange(InnerHeightPreferenceKey.self) {
-            height = $0
+        .onPreferenceChange(InnerHeightPreferenceKey.self) { [$height] height in
+            $height.wrappedValue = height
         }
         .multilineTextAlignment(.center)
         .padding(.horizontal, 16)
