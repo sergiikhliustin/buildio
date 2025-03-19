@@ -38,6 +38,6 @@ public struct V0PagingResponseModel: Codable, Sendable {
     }
     
     public static func empty() -> Self {
-        return V0PagingResponseModel(next: nil, pageItemLimit: nil, totalItemCount: nil)
+        return Self(next: nil, pageItemLimit: nil, totalItemCount: nil)
     }
 }

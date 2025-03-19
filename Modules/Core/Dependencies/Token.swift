@@ -25,7 +25,7 @@ package struct Token: Equatable, Identifiable, Hashable, Sendable {
         self.email = email
     }
     
-    package static func demo() -> Token {
-        return Token(token: "demo", email: "demo@example.com")
+    package static func demo() -> Self {
+        return Self(token: "demo", email: "demo@example.com")
     }
 }

@@ -28,6 +28,7 @@ public struct BuildResponseItemModel: Codable, Identifiable, Hashable, Sendable 
     public let pullRequestId: Int?
     public let pullRequestTargetBranch: String?
     public let pullRequestViewUrl: String?
+    // swiftlint:disable:next implicitly_unwrapped_optional
     public var repository: V0AppResponseItemModel!
     public let slug: String
     public let stackIdentifier: String
@@ -41,32 +42,34 @@ public struct BuildResponseItemModel: Codable, Identifiable, Hashable, Sendable 
     public let denTags: [String]?
     public var estimatedDuration: TimeInterval?
 
-    public init(abortReason: String? = nil,
-                branch: String?,
-                buildNumber: Int,
-                commitHash: String? = nil,
-                commitMessage: String? = nil,
-                commitViewUrl: String? = nil,
-                creditCost: Int? = nil,
-                environmentPrepareFinishedAt: Date,
-                finishedAt: Date? = nil,
-                isOnHold: Bool,
-                isProcessed: Bool,
-                machineTypeId: String,
-                originalBuildParams: [String: JSONValue],
-                pullRequestId: Int? = nil,
-                pullRequestTargetBranch: String? = nil,
-                pullRequestViewUrl: String? = nil,
-                repository: V0AppResponseItemModel,
-                slug: String,
-                stackIdentifier: String,
-                startedOnWorkerAt: Date,
-                status: Status,
-                statusText: String,
-                tag: String? = nil,
-                triggeredAt: Date,
-                triggeredBy: String? = nil,
-                triggeredWorkflow: String) {
+    public init(
+        abortReason: String? = nil,
+        branch: String?,
+        buildNumber: Int,
+        commitHash: String? = nil,
+        commitMessage: String? = nil,
+        commitViewUrl: String? = nil,
+        creditCost: Int? = nil,
+        environmentPrepareFinishedAt: Date,
+        finishedAt: Date? = nil,
+        isOnHold: Bool,
+        isProcessed: Bool,
+        machineTypeId: String,
+        originalBuildParams: [String: JSONValue],
+        pullRequestId: Int? = nil,
+        pullRequestTargetBranch: String? = nil,
+        pullRequestViewUrl: String? = nil,
+        repository: V0AppResponseItemModel,
+        slug: String,
+        stackIdentifier: String,
+        startedOnWorkerAt: Date,
+        status: Status,
+        statusText: String,
+        tag: String? = nil,
+        triggeredAt: Date,
+        triggeredBy: String? = nil,
+        triggeredWorkflow: String
+    ) {
         self.abortReason = abortReason
         self.branch = branch
         self.buildNumber = buildNumber
@@ -96,17 +99,17 @@ public struct BuildResponseItemModel: Codable, Identifiable, Hashable, Sendable 
         self.denTags = nil
         self.estimatedDuration = nil
     }
-    
+
     @frozen public enum Status: Int, Codable {
         case running = 0
         case success = 1
         case error = 2
         case aborted = 3
-        case cancelled = 4 // aborted with success
+        case cancelled = 4  // aborted with success
     }
-    
+
     public static func preview() -> Self {
-        return BuildResponseItemModel(
+        return Self(
             abortReason: nil,
             branch: "branch",
             buildNumber: 1,
@@ -132,7 +135,8 @@ public struct BuildResponseItemModel: Codable, Identifiable, Hashable, Sendable 
             tag: "some tag",
             triggeredAt: Date(),
             triggeredBy: nil,
-            triggeredWorkflow: "triggeredWorkflow")
+            triggeredWorkflow: "triggeredWorkflow"
+        )
     }
 }
 
@@ -145,7 +149,7 @@ extension BuildResponseItemModel {
             let json = try encoder.encode(params)
             return String(data: json, encoding: .utf8) ?? ""
         } catch {
-            
+
         }
         return ""
     }
@@ -172,7 +176,7 @@ extension JSONValue {
             }
         }
     }
-    
+
     var jsonString: String {
         switch self {
         case .string(let string):
@@ -188,7 +192,8 @@ extension JSONValue {
         case .array(let array):
             return "[\n\(array.map({ "\t\($0.jsonString)" }).joined(separator: ", \n"))\n\t]"
         case .object(let object):
-            return "{\n\(object.sorted(by: { $0.key < $1.key }).map({ "\t\($0.key): \t\($0.value.jsonString)" }).joined(separator: ", \n"))\n}"
+            return
+                "{\n\(object.sorted(by: { $0.key < $1.key }).map({ "\t\($0.key): \t\($0.value.jsonString)" }).joined(separator: ", \n"))\n}"
         }
     }
 }

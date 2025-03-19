@@ -1,7 +1,7 @@
 import ProjectDescription
 import Foundation
 
-let version: SettingValue = "2.0.0"
+let version: SettingValue = "2.0.2"
 
 let destinations: ProjectDescription.Destinations = [.iPhone, .iPad, .macCatalyst]
 
@@ -61,6 +61,8 @@ let project = Project(
             ],
             dependencies: [
                 .project(target: "Coordinator", path: "Modules"),
+                .external(name: "FirebaseAnalytics"),
+                .external(name: "FirebaseCore")
             ],
             settings: .settings(base: [
                 "DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER": "NO",

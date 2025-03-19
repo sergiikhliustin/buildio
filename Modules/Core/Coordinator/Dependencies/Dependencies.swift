@@ -6,6 +6,7 @@
 //
 import Foundation
 import Dependencies
+import Analytics
 
 final class Dependencies: DependenciesType {
     let tokenManager: TokenManagerType
@@ -13,6 +14,7 @@ final class Dependencies: DependenciesType {
     let navigator: NavigatorType
     let activityProvider: ActivityProviderType
     let buildStatusProvider: BuildStatusProviderType
+    let analyticsService: AnalyticsServiceType
 
     init(
         tokenManager: TokenManager,
@@ -26,5 +28,6 @@ final class Dependencies: DependenciesType {
         self.navigator = navigator
         self.activityProvider = activityProvider
         self.buildStatusProvider = buildStatusProvider
+        self.analyticsService = AnalyticsService()
     }
 }

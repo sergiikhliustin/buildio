@@ -15,14 +15,17 @@ import UIKit
 import AppKit
 #endif
 import Coordinator
+import FirebaseCore
 
 #if os(iOS)
 final class BuildioAppDelegate: NSObject, UIApplicationDelegate {
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        if Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") != nil {
+            FirebaseApp.configure()
+        }
 
         BackgroundProcessing.shared.start()
-        
+
         let center = UNUserNotificationCenter.current()
         center.removeAllDeliveredNotifications()
         center.removeAllPendingNotificationRequests()

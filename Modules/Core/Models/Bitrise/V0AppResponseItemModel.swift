@@ -8,7 +8,7 @@
 import Foundation
 
 public struct V0AppResponseItemModel: Codable, Identifiable, Equatable, Hashable, Sendable {
-    public static func == (lhs: V0AppResponseItemModel, rhs: V0AppResponseItemModel) -> Bool {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.slug == rhs.slug
     }
 
@@ -27,19 +27,21 @@ public struct V0AppResponseItemModel: Codable, Identifiable, Equatable, Hashable
     public let slug: String
     public let status: Int
     public let title: String
-    
-    public init(avatarUrl: String? = nil,
-                isDisabled: Bool,
-                isPublic: Bool,
-                owner: V0OwnerAccountResponseModel,
-                projectType: String,
-                provider: String,
-                repoOwner: String,
-                repoSlug: String,
-                repoUrl: String,
-                slug: String,
-                status: Int,
-                title: String) {
+
+    public init(
+        avatarUrl: String? = nil,
+        isDisabled: Bool,
+        isPublic: Bool,
+        owner: V0OwnerAccountResponseModel,
+        projectType: String,
+        provider: String,
+        repoOwner: String,
+        repoSlug: String,
+        repoUrl: String,
+        slug: String,
+        status: Int,
+        title: String
+    ) {
         self.avatarUrl = avatarUrl
         self.isDisabled = isDisabled
         self.isPublic = isPublic
@@ -53,19 +55,21 @@ public struct V0AppResponseItemModel: Codable, Identifiable, Equatable, Hashable
         self.status = status
         self.title = title
     }
-    
+
     public static func preview() -> Self {
-        return V0AppResponseItemModel(avatarUrl: nil,
-                                      isDisabled: false,
-                                      isPublic: false,
-                                      owner: V0OwnerAccountResponseModel.preview(),
-                                      projectType: "projectType",
-                                      provider: "provider",
-                                      repoOwner: "repoOwner",
-                                      repoSlug: "repoSlug",
-                                      repoUrl: "repoUrl",
-                                      slug: "slug",
-                                      status: 1,
-                                      title: "title")
+        return Self(
+            avatarUrl: nil,
+            isDisabled: false,
+            isPublic: false,
+            owner: V0OwnerAccountResponseModel.preview(),
+            projectType: "projectType",
+            provider: "provider",
+            repoOwner: "repoOwner",
+            repoSlug: "repoSlug",
+            repoUrl: "repoUrl",
+            slug: "slug",
+            status: 1,
+            title: "title"
+        )
     }
 }

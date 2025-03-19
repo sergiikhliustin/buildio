@@ -14,8 +14,9 @@ private extension BuildResponseItemModel {
 package actor BuildStatusProvider: BuildStatusProviderType {
     private let token: String?
 
-    private nonisolated(unsafe) var task: Task<Void, Never>?
-    private var consumers: [String: [ObjectIdentifier: AsyncStream<BuildResponseItemModel>.Continuation]] = [:]
+    private nonisolated(unsafe)var task: Task<Void, Never>?
+    private var consumers:
+        [String: [ObjectIdentifier: AsyncStream<BuildResponseItemModel>.Continuation]] = [:]
     private var originalBuilds: [String: BuildResponseItemModel] = [:]
 
     package init(token: String?) {
@@ -78,7 +79,9 @@ package actor BuildStatusProvider: BuildStatusProviderType {
                         guard let appSlug = components.first else { continue }
                         guard let buildSlug = components.last else { continue }
                         group.addTask {
-                            guard var build = try? await BuildsAPI(apiToken: token).buildShow(appSlug: appSlug, buildSlug: buildSlug).data
+                            guard
+                                var build = try? await BuildsAPI(apiToken: token)
+                                    .buildShow(appSlug: appSlug, buildSlug: buildSlug).data
                             else { return (fullId, nil) }
                             if let originalBuild {
                                 build.repository = originalBuild.repository
@@ -97,9 +100,14 @@ package actor BuildStatusProvider: BuildStatusProviderType {
                         guard !Task.isCancelled else { return }
                         guard var build else { continue }
                         guard let buildConsumers = await self.consumers[fullId] else { continue }
-                        guard let originalBuild = await self.originalBuilds[fullId] else { continue }
+                        guard let originalBuild = await self.originalBuilds[fullId] else {
+                            continue
+                        }
                         build.repository = originalBuild.repository
-                        await self.updateEstimatedDuration(fullId, estimatedDuration: build.estimatedDuration)
+                        await self.updateEstimatedDuration(
+                            fullId,
+                            estimatedDuration: build.estimatedDuration
+                        )
                         for consumer in buildConsumers.values {
                             consumer.yield(build)
                         }
@@ -122,12 +130,16 @@ package actor BuildStatusProvider: BuildStatusProviderType {
         let api = BuildsAPI(apiToken: token)
         do {
             let duration = try await api
-                .buildList(appSlug: build.repository.slug,
-                           branch: build.branch,
-                           workflow: build.triggeredWorkflow,
-                           before: finishedAt,
-                           status: .success,
-                           limit: 1).data.first?.duration
+                .buildList(
+                    appSlug: build.repository.slug,
+                    branch: build.branch,
+                    workflow: build.triggeredWorkflow,
+                    before: finishedAt,
+                    status: .success,
+                    limit: 1
+                )
+                .data.first?
+                .duration
             return duration
         } catch {
             logger.error("Failed to fetch build estimate: \(error)")

@@ -12,34 +12,44 @@ import Logger
 import Environment
 import Dependencies
 
+private extension String {
+    var isEmail: Bool {
+        // Regex pattern for validating email addresses
+        let emailRegex = #"^\S+@\S+\.\S{2,}$"#
+
+        // Predicate evaluation
+        return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: self)
+    }
+}
+
 package final class PreviewTokenManager: TokenManager {
     public override init(_ account: String? = nil) {
         super.init(account)
         self.tokens = [Token.demo()]
         self.token = self.tokens.first
     }
-    
+
     override func saveTokens() {
-        
+
     }
 }
 
 package class TokenManager: ObservableObject, TokenManagerType {
     private let keychain: Keychain
-    
+
     @Published package fileprivate(set) var tokens: [Token] {
         didSet {
             saveTokens()
         }
     }
-    
+
     @Published package var token: Token? {
         didSet {
             guard let newValue = token else {
                 UserDefaults.standard.lastAccount = nil
                 return
             }
-            
+
             var tokens = tokens
             if !tokens.contains(newValue) {
                 tokens.append(newValue)
@@ -48,7 +58,7 @@ package class TokenManager: ObservableObject, TokenManagerType {
             UserDefaults.standard.lastAccount = newValue.email
         }
     }
-    
+
     package init(_ account: String? = nil) {
         let keychain = Keychain()
         if ProcessInfo.processInfo.isTestEnv {
@@ -56,7 +66,7 @@ package class TokenManager: ObservableObject, TokenManagerType {
         } else {
             self.tokens = keychain.allKeys().reduce([Token]()) { partialResult, key in
                 var result = partialResult
-                if let token = keychain[key] {
+                if let token = keychain[key], key.isEmail {
                     result.append(Token(token: token, email: key))
                 }
                 return result
@@ -73,7 +83,7 @@ package class TokenManager: ObservableObject, TokenManagerType {
             self.token = self.tokens.first
         }
     }
-    
+
     package func set(_ token: Token) {
         if let token = tokens.first(where: { $0.token == token.token }) {
             logger.debug("")
@@ -82,7 +92,7 @@ package class TokenManager: ObservableObject, TokenManagerType {
             self.token = token
         }
     }
-    
+
     package func remove(_ token: Token) {
         guard let index = tokens.firstIndex(of: token) else { return }
         tokens.remove(at: index)
@@ -90,7 +100,7 @@ package class TokenManager: ObservableObject, TokenManagerType {
             self.token = tokens.first
         }
     }
-    
+
     fileprivate func saveTokens() {
         guard !ProcessInfo.processInfo.isTestEnv else { return }
 
@@ -113,7 +123,7 @@ package class TokenManager: ObservableObject, TokenManagerType {
 
 private extension UserDefaults {
     private static let lastAccountKey = "lastAccount"
-    
+
     var lastAccount: String? {
         get {
             string(forKey: Self.lastAccountKey)

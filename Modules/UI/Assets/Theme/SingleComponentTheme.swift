@@ -139,16 +139,16 @@ struct SingleComponentTheme: ThemeType, Codable {
     }
 
     // swiftlint:disable force_try
-    static var defaultLight: SingleComponentTheme {
+    static var defaultLight: Self {
         let data = try! JSONSerialization.data(withJSONObject: defaultLightTheme, options: .prettyPrinted)
         let decoder = JSONDecoder()
-        return try! decoder.decode(SingleComponentTheme.self, from: data)
+        return try! decoder.decode(Self.self, from: data)
     }
 
-    static var defaultDark: SingleComponentTheme {
+    static var defaultDark: Self {
         let data = try! JSONSerialization.data(withJSONObject: defaultDarkTheme, options: .prettyPrinted)
         let decoder = JSONDecoder()
-        return try! decoder.decode(SingleComponentTheme.self, from: data)
+        return try! decoder.decode(Self.self, from: data)
     }
     // swiftlint:enable force_try
 

@@ -63,7 +63,7 @@ package enum RouteType: Hashable {
         }
     }
 
-    package static func == (lhs: RouteType, rhs: RouteType) -> Bool {
+    package static func == (lhs: Self, rhs: Self) -> Bool {
         switch (lhs, rhs) {
         case (.empty, .empty):
             return true

@@ -37,6 +37,13 @@ package struct AppsPage: PageType {
                 searchBar.id("Apps_SearchBar")
             }
             .background(theme.background.color)
+            if viewModel.canLoadMore {
+                BuildioProgressView()
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .onAppear {
+                        viewModel.loadMore()
+                    }
+            }
         }
         .id(viewModel.id)
         .background(theme.background.color)

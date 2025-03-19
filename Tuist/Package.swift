@@ -38,6 +38,7 @@ let package = Package(
         .package(url: "git@github.com:johnpatrickmorgan/FlowStacks.git", from: "0.8.3"),
         .package(url: "git@github.com:siteline/swiftui-introspect.git", exact: "1.3.0"),
         .package(url: "git@github.com:apple/swift-async-algorithms.git", from: "1.0.0"),
-        .package(url: "git@github.com:onevcat/Kingfisher.git", from: "8.1.0")
+        .package(url: "git@github.com:onevcat/Kingfisher.git", from: "8.1.0"),
+        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "11.10.0")
     ]
 )

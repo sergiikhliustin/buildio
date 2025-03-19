@@ -29,12 +29,13 @@ package struct StartBuildPage: PageType {
                     trailing: {
                         Image(.chevron_right)
                             .padding(.horizontal, 8)
-                    })
-                    .disabled(true)
-                    .button {
-                        viewModel.onAppSelect()
                     }
-                    .listShadow(theme)
+                )
+                .disabled(true)
+                .button {
+                    viewModel.onAppSelect()
+                }
+                .listShadow(theme)
 
                 Text("Branch:")
                 BuildioTextField(
@@ -46,9 +47,10 @@ package struct StartBuildPage: PageType {
                             .button {
                                 viewModel.onBranchSelect()
                             }
-                    })
-                    .disabled(viewModel.app == nil)
-                    .listShadow(theme)
+                    }
+                )
+                .disabled(viewModel.app == nil)
+                .listShadow(theme)
 
                 Text("Workflow:")
                 BuildioTextField(
@@ -60,9 +62,10 @@ package struct StartBuildPage: PageType {
                             .button {
                                 viewModel.onWorkflowSelect()
                             }
-                    })
-                    .disabled(viewModel.app == nil)
-                    .listShadow(theme)
+                    }
+                )
+                .disabled(viewModel.app == nil)
+                .listShadow(theme)
                 Text("Message:")
                 BuildioTextField(
                     text: $viewModel.params.message,

@@ -16,6 +16,7 @@ public struct V0ArtifactListElementResponseModel: Codable, Identifiable, Sendabl
     public let artifactType: String?
     public let fileSizeBytes: Int?
     public let isPublicPageEnabled: Bool?
+    // swiftlint:disable:next implicitly_unwrapped_optional
     public let slug: String!
     public let title: String?
 

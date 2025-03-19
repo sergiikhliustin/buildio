@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import Components
+import Analytics
 
 @MainActor
 package protocol PageType: View {
@@ -35,5 +36,7 @@ package extension PageType {
                 }
             }
             .id(viewModel.id)
+            .analyticsPage(String(describing: Self.self))
+
     }
 }

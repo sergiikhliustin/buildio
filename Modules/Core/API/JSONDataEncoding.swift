@@ -27,7 +27,7 @@ package struct JSONDataEncoding {
     package func encode(_ urlRequest: URLRequest, with parameters: [String: Any]?) -> URLRequest {
         var urlRequest = urlRequest
 
-        guard let jsonData = parameters?[JSONDataEncoding.jsonDataKey] as? Data, !jsonData.isEmpty else {
+        guard let jsonData = parameters?[Self.jsonDataKey] as? Data, !jsonData.isEmpty else {
             return urlRequest
         }
 

@@ -39,6 +39,6 @@ package class OpenISO8601DateFormatter: DateFormatter {
         if let result = super.date(from: string) {
             return result
         }
-        return OpenISO8601DateFormatter.withoutSeconds.date(from: string)
+        return Self.withoutSeconds.date(from: string)
     }
 }

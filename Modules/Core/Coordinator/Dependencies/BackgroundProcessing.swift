@@ -14,7 +14,7 @@ import Logger
 import UIKit
 
 extension UserDefaults {
-    struct Keys {
+    enum Keys {
         static let lastActivityDates = "lastActivityDates"
     }
     func lastActivityDate(email: String) -> TimeInterval {

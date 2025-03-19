@@ -7,4 +7,5 @@ package protocol DependenciesType: AnyObject {
     var activityProvider: ActivityProviderType { get }
     var tokenManager: TokenManagerType { get }
     var buildStatusProvider: BuildStatusProviderType { get }
+    var analyticsService: AnalyticsServiceType { get }
 }

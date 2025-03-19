@@ -34,9 +34,19 @@ public struct V0ActivityEventResponseItemModel: Codable, Identifiable, Sendable 
         try container.encodeIfPresent(targetPathString, forKey: .targetPathString)
         try container.encodeIfPresent(title, forKey: .title)
     }
-    
+
     public static func preview() -> Self {
-        return V0ActivityEventResponseItemModel(createdAt: Date(), description: "description", eventIcon: "icon", eventStype: "type", repositoryAvatarIconUrl: "icon", repositoryTitle: "repoTitle", slug: "slug", targetPathString: "targetPath", title: "title")
+        return Self(
+            createdAt: Date(),
+            description: "description",
+            eventIcon: "icon",
+            eventStype: "type",
+            repositoryAvatarIconUrl: "icon",
+            repositoryTitle: "repoTitle",
+            slug: "slug",
+            targetPathString: "targetPath",
+            title: "title"
+        )
     }
 
     public var appName: String? {
@@ -44,6 +54,7 @@ public struct V0ActivityEventResponseItemModel: Codable, Identifiable, Sendable 
     }
 
     public var isMatchingPipeline: Bool {
-        return description?.contains("no matching pipeline & workflow found with trigger params") == true
+        return description?.contains("no matching pipeline & workflow found with trigger params")
+            == true
     }
 }

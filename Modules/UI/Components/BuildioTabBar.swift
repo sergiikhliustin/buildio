@@ -64,7 +64,7 @@ package enum BuildioTabItem: CaseIterable, Identifiable {
         }
     }
 
-    package static let `default`: [BuildioTabItem] = [
+    package static let `default`: [Self] = [
         .builds,
         .apps,
         .activities,
@@ -72,14 +72,14 @@ package enum BuildioTabItem: CaseIterable, Identifiable {
         .settings,
     ]
 
-    package static let preview: [BuildioTabItem] = [
+    package static let preview: [Self] = [
         .builds,
         .apps,
     ]
 }
 
 package struct BuildioTabBar: View {
-    struct Constants {
+    enum Constants {
         static let horizontalWidth: CGFloat = 68
         static let verticalHeight: CGFloat = 48
     }
@@ -141,7 +141,7 @@ package struct BuildioTabBar: View {
     }
 
     @ViewBuilder
-    private func stack<Content: View>(style: BuildioTabBar.Style, content: () -> Content) -> some View {
+    private func stack<Content: View>(style: Self.Style, content: () -> Content) -> some View {
         switch style {
         case .horizontal:
             horizontal(content)

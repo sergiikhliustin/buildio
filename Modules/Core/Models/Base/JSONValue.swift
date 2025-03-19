@@ -12,8 +12,8 @@ public enum JSONValue: Codable, Equatable, Hashable, Sendable {
     case int(Int)
     case double(Double)
     case bool(Bool)
-    case object([String: JSONValue])
-    case array([JSONValue])
+    case object([String: Self])
+    case array([Self])
     case null
     
     public func encode(to encoder: Encoder) throws {
@@ -31,16 +31,16 @@ public enum JSONValue: Codable, Equatable, Hashable, Sendable {
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self = try ((try? container.decode(String.self)).map(JSONValue.string))
-            .or((try? container.decode(Int.self)).map(JSONValue.int))
-            .or((try? container.decode(Double.self)).map(JSONValue.double))
-            .or((try? container.decode(Bool.self)).map(JSONValue.bool))
-            .or((try? container.decode([String: JSONValue].self)).map(JSONValue.object))
-            .or((try? container.decode([JSONValue].self)).map(JSONValue.array))
-            .or((container.decodeNil() ? .some(JSONValue.null) : .none))
+        self = try ((try? container.decode(String.self)).map(Self.string))
+            .or((try? container.decode(Int.self)).map(Self.int))
+            .or((try? container.decode(Double.self)).map(Self.double))
+            .or((try? container.decode(Bool.self)).map(Self.bool))
+            .or((try? container.decode([String: Self].self)).map(Self.object))
+            .or((try? container.decode([Self].self)).map(Self.array))
+            .or((container.decodeNil() ? .some(Self.null) : .none))
             .resolve(
                 with: DecodingError.typeMismatch(
-                    JSONValue.self,
+                    Self.self,
                     DecodingError.Context(
                         codingPath: container.codingPath,
                         debugDescription: "Not a JSON value"

@@ -29,7 +29,7 @@ package struct ThemeV2: ThemeType {
     package var errorBackground: PlatformColor
     package var errorText: PlatformColor
 
-    package static var `default`: ThemeV2 {
+    package static var `default`: Self {
         return .init(light: .defaultLight, dark: .defaultDark)
     }
 

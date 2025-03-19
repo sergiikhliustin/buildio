@@ -25,7 +25,7 @@ struct BuildView: View {
     private struct Item: View {
         let image: Images
         let text: String?
-        
+
         var body: some View {
             if let text = text, !text.isEmpty {
                 HStack(spacing: 4) {
@@ -36,14 +36,14 @@ struct BuildView: View {
             }
         }
     }
-    
+
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
             let statusColor = build.extendedStatus.color
             Rectangle()
                 .fill(statusColor)
                 .frame(width: 5)
-            
+
             VStack(alignment: .leading) {
                 FlowLayout {
                     Text(build.extendedStatus.rawValue)
@@ -62,7 +62,10 @@ struct BuildView: View {
                             Text(String(pullRequest))
                         }
                         .padding(8)
-                        .background(RoundedRectangle(cornerRadius: 4).stroke(Color.fromString(build.branchOrigOwnerUIString)))
+                        .background(
+                            RoundedRectangle(cornerRadius: 4)
+                                .stroke(Color.fromString(build.branchOrigOwnerUIString))
+                        )
                     }
 
                     Text(build.branchOrigOwnerUIString)
@@ -89,7 +92,7 @@ struct BuildView: View {
 
                 ProgressView(value: build.progress ?? 0)
                     .progressViewStyle(LinearProgressViewStyle())
-                
+
                 Group {
                     HStack {
                         TextView("Triggered @ " + build.triggeredAt.full)
@@ -102,21 +105,24 @@ struct BuildView: View {
                     Item(image: .clock, text: build.durationString)
                     Item(image: .coloncurrencysign_circle, text: build.creditCost?.description)
                     Item(image: .number, text: String(build.buildNumber))
-                    Item(image: .square_stack_3d_up,
-                         text: [build.machineTypeId, build.stackIdentifier].compactMap({ $0 }).joined(separator: " "))
+                    Item(
+                        image: .square_stack_3d_up,
+                        text: [build.machineTypeId, build.stackIdentifier].compactMap({ $0 })
+                            .joined(separator: " ")
+                    )
                     Item(image: .bolt_fill, text: build.triggeredBy)
-                    
+
                     Rectangle()
                         .fill(theme.separatorColor.color)
                         .frame(height: 1)
                 }
-                
+
                 Group {
                     Text("Commit hash:").secondary()
                     TextView(build.commitHash ?? "No commit hash specified").primary()
                     Rectangle().fill(theme.separatorColor.color).frame(height: 1)
                 }
-                
+
                 Group {
                     HStack {
                         Text("Commit message:")
@@ -132,16 +138,16 @@ struct BuildView: View {
                         .fixedSize()
                     }
                     .secondary()
-                    
+
                     if let commitMessage = build.commitMessage, messageStyle == .markdown {
                         Markdown(commitMessage)
                             .markdownTheme(
                                 .init()
                                     .text {
                                         #if targetEnvironment(macCatalyst)
-                                        FontSize(11)
+                                            FontSize(11)
                                         #else
-                                        FontSize(15)
+                                            FontSize(15)
                                         #endif
                                         ForegroundColor(theme.textColor.color)
                                         BackgroundColor(.clear)
@@ -158,10 +164,10 @@ struct BuildView: View {
                             .fixedSize(horizontal: false, vertical: true)
                             .primary()
                     }
-                    
+
                     Rectangle().fill(theme.separatorColor.color).frame(height: 1)
                 }
-                
+
                 if let abortReason = build.abortReason {
                     Group {
                         Text("Abort reason:").secondary()
@@ -169,7 +175,7 @@ struct BuildView: View {
                         Rectangle().fill(theme.separatorColor.color).frame(height: 1)
                     }
                 }
-                
+
                 if let denTags = build.denTags, !denTags.isEmpty {
                     Group {
                         Text("Build tags:").secondary()
@@ -177,7 +183,7 @@ struct BuildView: View {
                         Rectangle().fill(theme.separatorColor.color).frame(height: 1)
                     }
                 }
-                
+
                 if let startedOn = build.startedOnWorkerAt {
                     Group {
                         Text("Started @").secondary()
@@ -185,7 +191,7 @@ struct BuildView: View {
                         Rectangle().fill(theme.separatorColor.color).frame(height: 1)
                     }
                 }
-                
+
                 if let finishedAt = build.finishedAt {
                     Group {
                         Text("Finished @").secondary()

@@ -31,6 +31,6 @@ public struct V0BuildListResponseModel: Codable, PagingResponseModel, Sendable {
     }
     
     public static func empty() -> Self {
-        return V0BuildListResponseModel(data: [], paging: V0PagingResponseModel.empty())
+        return Self(data: [], paging: V0PagingResponseModel.empty())
     }
 }

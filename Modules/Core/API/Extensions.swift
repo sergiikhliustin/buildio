@@ -99,7 +99,6 @@ extension UUID: JSONEncodable {
 }
 
 extension String: CodingKey {
-
     public var stringValue: String {
         return self
     }
@@ -115,7 +114,6 @@ extension String: CodingKey {
     public init?(intValue: Int) {
         return nil
     }
-
 }
 
 extension KeyedEncodingContainerProtocol {

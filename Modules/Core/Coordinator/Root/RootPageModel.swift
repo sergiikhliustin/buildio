@@ -37,6 +37,7 @@ final class RootPageModel: ObservableObject, NavigatorType {
     }
     @Published var windowMode: WindowMode { didSet { onWindowModeChange(oldValue) }}
     var shouldSplit: Bool {
+        // swiftlint:disable:next contains_over_filter_is_empty
         windowMode == .split && !path.secondary.routes.filter { !$0.isPresented }.isEmpty
     }
     let root: RouteType
@@ -96,7 +97,7 @@ final class RootPageModel: ObservableObject, NavigatorType {
     }
 
     func dismiss() {
-        if let sheet = path.primary.routes.last, sheet.isPresented {
+        if path.primary.routes.contains(where: { $0.isPresented }) {
             path.primary.dismiss()
         } else if windowMode == .split {
             path.secondary.dismiss()
@@ -132,7 +133,7 @@ final class RootPageModel: ObservableObject, NavigatorType {
     private func onPathChange() {
         let primaryPath = path.primary.routes.map { $0.screen }
         let secondaryPath = path.secondary.routes.map { $0.screen }
-        let filteredViewModels = viewModels.filter { (key, value) in
+        let filteredViewModels = viewModels.filter { key, value in
             key == self.root || primaryPath.contains(key) || secondaryPath.contains(key)
         }
         viewModels = filteredViewModels

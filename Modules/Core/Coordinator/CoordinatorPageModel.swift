@@ -54,7 +54,8 @@ public final class CoordinatorPageModel: ObservableObject {
                             windowMode: .compact,
                             viewModelFactory: { [unowned self] navigator, path in
                                 return viewModelFactory(navigator: navigator, path: path)
-                            })
+                            }
+                        )
                         self.reset()
                     } else {
                         self.authPageModel = nil
@@ -106,20 +107,24 @@ public final class CoordinatorPageModel: ObservableObject {
 
     private func updateAppearance() {
         #if os(iOS)
-        let navigationBarAppearance = UINavigationBarAppearance()
-        navigationBarAppearance.configureWithDefaultBackground()
-        navigationBarAppearance.backgroundColor = theme.background
-        navigationBarAppearance.shadowColor = .clear
-        navigationBarAppearance.shadowImage = UIImage()
-        navigationBarAppearance.largeTitleTextAttributes = [.foregroundColor: theme.navigationColor]
-        navigationBarAppearance.titleTextAttributes = [.foregroundColor: theme.navigationColor]
-        navigationBarAppearance.buttonAppearance.normal.titleTextAttributes = [.foregroundColor: theme.navigationColor]
-        navigationBarAppearance.backgroundEffect = nil
-        UINavigationBar.appearance().standardAppearance = navigationBarAppearance
-        UINavigationBar.appearance().compactAppearance = navigationBarAppearance
-        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
-        UINavigationBar.appearance().compactScrollEdgeAppearance = navigationBarAppearance
-        UINavigationBar.appearance().isTranslucent = true
+            let navigationBarAppearance = UINavigationBarAppearance()
+            navigationBarAppearance.configureWithDefaultBackground()
+            navigationBarAppearance.backgroundColor = theme.background
+            navigationBarAppearance.shadowColor = .clear
+            navigationBarAppearance.shadowImage = UIImage()
+            navigationBarAppearance.largeTitleTextAttributes = [
+                .foregroundColor: theme.navigationColor
+            ]
+            navigationBarAppearance.titleTextAttributes = [.foregroundColor: theme.navigationColor]
+            navigationBarAppearance.buttonAppearance.normal.titleTextAttributes = [
+                .foregroundColor: theme.navigationColor
+            ]
+            navigationBarAppearance.backgroundEffect = nil
+            UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+            UINavigationBar.appearance().compactAppearance = navigationBarAppearance
+            UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+            UINavigationBar.appearance().compactScrollEdgeAppearance = navigationBarAppearance
+            UINavigationBar.appearance().isTranslucent = true
         #endif
     }
 }

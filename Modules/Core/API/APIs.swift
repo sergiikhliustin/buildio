@@ -6,7 +6,7 @@
 
 import Foundation
 
-struct OpenAPIClientAPI {
+enum OpenAPIClientAPI {
     static let basePath = "https://api.bitrise.io/v0.1"
 }
 

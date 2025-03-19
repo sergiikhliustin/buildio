@@ -7,3 +7,4 @@ Modules/Modules.xcodeproj
 Tuist/.build
 build/XCBuildData
 Modules/Derived
+Shared/GoogleService-Info.plist

@@ -11,5 +11,6 @@ package final class DependenciesMock: DependenciesType {
     package let activityProvider: ActivityProviderType = ActivityProviderMock()
     package let tokenManager: TokenManagerType = TokenManagerMock()
     package let buildStatusProvider: BuildStatusProviderType = BuildStatusProviderMock()
+    package let analyticsService: AnalyticsServiceType = AnalyticsServiceMock()
     package init() {}
 }

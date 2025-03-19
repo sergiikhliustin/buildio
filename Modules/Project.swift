@@ -2,11 +2,7 @@ import ProjectDescription
 import Foundation
 
 let productType: ProjectDescription.Product = {
-    if Environment.static.getBoolean(default: false) {
-        return .staticFramework
-    } else {
-        return .framework
-    }
+    return .staticFramework
 }()
 
 let settings: ProjectDescription.Settings = .settings(
@@ -24,7 +20,8 @@ let core = [
     "Dependencies",
     "Environment",
     "API",
-    "DataProviders"
+    "DataProviders",
+    "Analytics"
 ]
 
 let features = [
@@ -63,6 +60,7 @@ let coreTargets: [ProjectDescription.Target] = {
             .target(name: "Dependencies"),
             .target(name: "Environment"),
             .target(name: "DataProviders"),
+            .target(name: "Analytics"),
         ] + features.map { .target(name: $0) },
         "Dependencies": [
             .target(name: "API"),
@@ -73,6 +71,12 @@ let coreTargets: [ProjectDescription.Target] = {
             .target(name: "Models"),
             .target(name: "Dependencies"),
             .external(name: "AsyncAlgorithms")
+        ],
+        "Analytics": [
+            .target(name: "Logger"),
+            .external(name: "FirebaseAnalytics"),
+            .external(name: "FirebaseCore"),
+            .target(name: "Dependencies"),
         ]
     ]
     let resources: [String: ResourceFileElements] = [
@@ -138,7 +142,8 @@ let uiTargets: [ProjectDescription.Target] = {
             .target(name: "Assets"),
             .target(name: "Dependencies"),
             .target(name: "Components"),
-            .target(name: "Models")
+            .target(name: "Models"),
+            .target(name: "Analytics"),
         ]
     ]
     return ui.map {
